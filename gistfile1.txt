@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DnRs Bikeshop</title>
+
+    <!-- Tailwind CSS CDN -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Inter Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+
+            font-family: 'Inter', sans-serif;
+
+            background-color: #000000; /* Solid black background */
+
+            color: #ffffff; /* White text for high contrast */
+
+            overflow-x: hidden; /* Prevent any horizontal scrolling */
+
+        }
+
+        /* Custom scrollbar for a sleek look */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #333333; /* Dark track */
+
+            border-radius: 10px;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #FF8C00; /* Vibrant orange thumb */
+
+            border-radius: 10px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #FF9900; /* Lighter orange on hover */
+
+        }
+
+        /* Mobile menu specific styles for smooth transition */
+
+        .mobile-menu {
+
+            transition: transform 0.3s ease-in-out;
+
+            transform: translateX(100%); /* Hidden by default */
+
+        }
+
+        .mobile-menu.open {
+
+            transform: translateX(0); /* Slides in from the right */
+
+        }
+
+        /* Keyframe animation for hero section text to create a dynamic entrance */
+
+        @keyframes fadeInScale {
+
+            from {
+
+                opacity: 0;
+
+                transform: scale(0.9);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: scale(1);
+
+            }
+
+        }
+
+        .animate-fadeInScale {
+
+            animation: fadeInScale 1s ease-out forwards;
+
+        }
+
+        /* Enhanced hover effects for interactive elements */
+
+        .btn-primary {
+
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.4); /* Subtle orange glow */
+
+        }
+
+        .btn-primary:hover {
+
+            background-color: #FF9900; /* Lighter orange on hover */
+
+            transform: translateY(-2px); /* Lift effect */
+
+            box-shadow: 0 6px 15px rgba(255, 140, 0, 0.6); /* More pronounced glow */
+
+        }
+
+        .nav-link-hover:hover {
+
+            color: #FF8C00; /* Orange text on hover */
+
+            transform: translateY(-1px); /* Subtle lift */
+
+        }
+
+        /* Card hover effect */
+
+        .card-hover {
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        }
+
+        .card-hover:hover {
+
+            transform: translateY(-5px) scale(1.02); /* Lift and slight scale */
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow */
+
+        }
+
+        /* Scroll-triggered fade-in-up animation for sections */
+
+        .fade-in-up {
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        }
+
+        .fade-in-up.appear {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+    </style>
+
+</head>
+
+<body class="antialiased">
+
+    <!-- Header Section -->
+
+    <header class="bg-black text-white py-4 shadow-lg sticky top-0 z-50">
+
+        <div class="container mx-auto px-4 flex justify-between items-center">
+
+            <div class="flex items-center">
+
+                <!-- Logo Image from a stable source -->
+
+                <img src="https://i.imgur.com/YgY7f5c.png" alt="DnRs Bikeshop Logo" class="h-12 w-12 mr-3 md:mr-4 rounded-full border-2 border-orange-500 shadow-md object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x500/1e293b/d97706?text=Logo';">
+
+                <h1 class="text-3xl md:text-4xl font-extrabold text-orange-500 rounded-lg p-1 md:p-2">DnRs Bikeshop</h1>
+
+            </div>
+
+            <!-- Desktop Navigation -->
+
+            <nav class="hidden md:block">
+
+                <ul class="flex space-x-6 text-lg font-semibold">
+
+                    <li><a href="#home" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Home</a></li>
+
+                    <li><a href="#bikes" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Bikes</a></li>
+
+                    <li><a href="#accessories" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Accessories</a></li>
+
+                    <li><a href="#services" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Services</a></li>
+
+                    <li><a href="#rentals" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Rentals</a></li>
+
+                    <li><a href="#contact" class="nav-link-hover transition duration-300 ease-in-out rounded-md px-3 py-1">Contact</a></li>
+
+                </ul>
+
+            </nav>
+
+            <!-- Mobile Menu Button (Hamburger) -->
+
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+
+                </svg>
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-gray-900 z-50 shadow-lg md:hidden">
+
+        <div class="flex justify-end p-4">
+
+            <button id="close-mobile-menu" class="text-white focus:outline-none">
+
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+
+                </svg>
+
+            </button>
+
+        </div>
+
+        <nav class="flex flex-col items-center py-8">
+
+            <ul class="space-y-6 text-xl font-semibold">
+
+                <li><a href="#home" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Home</a></li>
+
+                <li><a href="#bikes" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Bikes</a></li>
+
+                <li><a href="#accessories" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Accessories</a></li>
+
+                <li><a href="#services" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Services</a></li>
+
+                <li><a href="#rentals" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Rentals</a></li>
+
+                <li><a href="#contact" class="block text-white hover:text-orange-500 transition duration-300 ease-in-out rounded-md px-4 py-2" onclick="document.getElementById('mobile-menu').classList.remove('open')">Contact</a></li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+    <!-- Hero Section -->
+
+    <section id="home" class="relative h-screen bg-cover bg-center flex items-center justify-center text-center p-4">
+
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+
+        <!-- Hero Background Image from Imgur -->
+
+        <img src="https://i.imgur.com/k6lPqN8.jpg" alt="Hero Image of a person riding a bike" class="absolute inset-0 w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/1e293b/d97706?text=DnRs+Bikeshop+Hero';">
+
+        <div class="relative z-10 max-w-3xl mx-auto">
+
+            <h2 class="text-4xl md:text-6xl font-bold text-orange-500 leading-tight mb-4 md:mb-6 animate-fadeInScale"> Your Journey Starts Here </h2>
+
+            <p class="text-lg md:text-2xl text-white mb-6 md:mb-8 px-2 animate-fadeInScale" style="animation-delay: 0.2s;"> Discover the perfect ride for every adventure at DnRs Bikeshop. Quality bikes, expert service, and passionate advice. </p>
+
+            <a href="#bikes" class="btn-primary bg-orange-500 text-black font-bold py-2 px-6 md:py-3 md:px-8 rounded-full text-base md:text-lg"> Explore Our Bikes </a>
+
+        </div>
+
+    </section>
+
+    <!-- Bikes Section -->
+
+    <section id="bikes" class="py-12 md:py-16 bg-gray-900 fade-in-up">
+
+        <div class="container mx-auto px-4">
+
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-8 md:mb-12">Our Bikes</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
+
+                <!-- Bike Card 1 (Mountain) -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+
+                    <img src="https://i.imgur.com/f7jYy1n.jpg" alt="Mountain Bike" class="w-full h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Mountain+Bike';">
+
+                    <div class="p-4 md:p-6">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">Mountain Bikes</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-3 md:mb-4">Conquer any trail with our rugged and high-performance mountain bikes.</p>
+
+                        <a href="#" class="btn-primary bg-orange-500 text-black font-bold py-1 px-3 md:py-2 md:px-4 rounded-full text-sm md:text-base">View Details</a>
+
+                    </div>
+
+                </div>
+
+                <!-- Bike Card 2 (Road) -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+
+                    <img src="https://i.imgur.com/q9f9R6p.jpg" alt="Road Bike" class="w-full h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Road+Bike';">
+
+                    <div class="p-4 md:p-6">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">Road Bikes</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-3 md:mb-4">Experience speed and efficiency with our lightweight and aerodynamic road bikes.</p>
+
+                        <a href="#" class="btn-primary bg-orange-500 text-black font-bold py-1 px-3 md:py-2 md:px-4 rounded-full text-sm md:text-base">View Details</a>
+
+                    </div>
+
+                </div>
+
+                <!-- Bike Card 3 (Electric) -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+
+                    <img src="https://i.imgur.com/o7b3t5E.jpg" alt="Electric Bike" class="w-full h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Electric+Bike';">
+
+                    <div class="p-4 md:p-6">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">Electric Bikes</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-3 md:mb-4">Effortless riding with our range of powerful and stylish electric bikes.</p>
+
+                        <a href="#" class="btn-primary bg-orange-500 text-black font-bold py-1 px-3 md:py-2 md:px-4 rounded-full text-sm md:text-base">View Details</a>
+
+                    </div>
+
+                </div>
+
+                <!-- Bike Card 4 (BMX) -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden card-hover">
+
+                    <img src="https://i.imgur.com/yv6N2L9.jpg" alt="BMX Bike" class="w-full h-40 md:h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=BMX+Bike';">
+
+                    <div class="p-4 md:p-6">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">BMX Bikes</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-3 md:mb-4">Built for tricks and stunts, our BMX bikes are tough and reliable.</p>
+
+                        <a href="#" class="btn-primary bg-orange-500 text-black font-bold py-1 px-3 md:py-2 md:px-4 rounded-full text-sm md:text-base">View Details</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Accessories Section -->
+
+    <section id="accessories" class="py-12 md:py-16 bg-black fade-in-up">
+
+        <div class="container mx-auto px-4">
+
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-8 md:mb-12">Accessories</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+
+                <!-- Accessory Cards -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden text-center p-4 md:p-6 card-hover">
+
+                    <img src="https://i.imgur.com/eB308uG.jpg" alt="Helmet" class="w-full h-28 md:h-32 object-cover mb-3 md:mb-4 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Helmet';">
+
+                    <h3 class="text-lg md:text-xl font-semibold text-orange-500 mb-1 md:mb-2">Helmets</h3>
+
+                    <p class="text-gray-300 text-sm md:text-base">Stay safe with our range of comfortable and protective helmets.</p>
+
+                </div>
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden text-center p-4 md:p-6 card-hover">
+
+                    <img src="https://i.imgur.com/9nJ97vJ.jpg" alt="Lights" class="w-full h-28 md:h-32 object-cover mb-3 md:mb-4 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Lights';">
+
+                    <h3 class="text-lg md:text-xl font-semibold text-orange-500 mb-1 md:mb-2">Lights</h3>
+
+                    <p class="text-gray-300 text-sm md:text-base">Illuminate your path with our bright and durable bike lights.</p>
+
+                </div>
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden text-center p-4 md:p-6 card-hover">
+
+                    <img src="https://i.imgur.com/B94zQ7A.jpg" alt="Pumps & Tools" class="w-full h-28 md:h-32 object-cover mb-3 md:mb-4 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Pumps+and+Tools';">
+
+                    <h3 class="text-lg md:text-xl font-semibold text-orange-500 mb-1 md:mb-2">Pumps & Tools</h3>
+
+                    <p class="text-gray-300 text-sm md:text-base">Essential tools for maintenance and on-the-go repairs.</p>
+
+                </div>
+
+                <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden text-center p-4 md:p-6 card-hover">
+
+                    <img src="https://i.imgur.com/1E6Hn8E.jpg" alt="Apparel" class="w-full h-28 md:h-32 object-cover mb-3 md:mb-4 rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/500x300/1e293b/d97706?text=Apparel';">
+
+                    <h3 class="text-lg md:text-xl font-semibold text-orange-500 mb-1 md:mb-2">Apparel</h3>
+
+                    <p class="text-gray-300 text-sm md:text-base">Comfortable and stylish riding gear for all seasons.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Services Section -->
+
+    <section id="services" class="py-12 md:py-16 bg-black fade-in-up">
+
+        <div class="container mx-auto px-4">
+
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-8 md:mb-12">Our Services</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+                <!-- Service Cards -->
+
+                <div class="bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 flex items-start space-x-3 md:space-x-4 card-hover">
+
+                    <div class="text-orange-500 text-4xl md:text-5xl flex-shrink-0">⚙️</div>
+
+                    <div>
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">Bike Maintenance & Repair</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base">From tune-ups to major overhauls, our certified technicians will keep your bike running smoothly.</p>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 flex items-start space-x-3 md:space-x-4 card-hover">
+
+                    <div class="text-orange-500 text-4xl md:text-5xl flex-shrink-0">🛠️</div>
+
+                    <div>
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-1 md:mb-2">Custom Builds</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base">Dreaming of a unique ride? We specialize in custom bike builds tailored to your specifications.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Rentals Section -->
+
+    <section id="rentals" class="py-12 md:py-16 bg-gray-900 fade-in-up">
+
+        <div class="container mx-auto px-4">
+
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-8 md:mb-12">Bike Rentals</h2>
+
+            <div class="max-w-3xl mx-auto text-center">
+
+                <p class="text-lg text-gray-300 mb-6">
+
+                    Looking for a temporary ride? We offer a wide range of bikes for rent, from casual city cruisers to high-performance mountain bikes.
+
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                    <div class="bg-gray-800 rounded-xl shadow-lg p-6 card-hover">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-2">City Cruiser</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-4">Perfect for a relaxed ride around town or along local paths.</p>
+
+                        <p class="text-white font-bold text-lg">Hourly: $15 | Daily: $50</p>
+
+                    </div>
+
+                    <div class="bg-gray-800 rounded-xl shadow-lg p-6 card-hover">
+
+                        <h3 class="text-xl md:text-2xl font-semibold text-orange-500 mb-2">Mountain Trail Bike</h3>
+
+                        <p class="text-gray-300 text-sm md:text-base mb-4">Explore challenging terrain with our rugged and reliable mountain bikes.</p>
+
+                        <p class="text-white font-bold text-lg">Hourly: $25 | Daily: $75</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    
+     <!-- Contact Section -->
+    <section id="contact" class="py-12 md:py-16 bg-gray-900 fade-in-up">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-8 md:mb-12">Contact Us</h2>
+            <div class="max-w-xl mx-auto bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
+                <p class="text-gray-300 text-center mb-4 md:mb-6 text-sm md:text-base">Have questions or need assistance? Reach out to us!</p>
+                <form class="space-y-4 md:space-y-6">
+                    <div>
+                        <label for="name" class="block text-gray-200 text-base md:text-lg font-medium mb-1 md:mb-2">Name</label>
+                        <input type="text" id="name" name="name" class="w-full p-2 md:p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-gray-200 text-base md:text-lg font-medium mb-1 md:mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full p-2 md:p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="your@example.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-200 text-base md:text-lg font-medium mb-1 md:mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full p-2 md:p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" placeholder="Your message..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary bg-orange-500 text-black font-bold py-2 px-6 md:py-3 md:px-8 rounded-full text-base md:text-lg"> Send Message </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="bg-black text-gray-400 py-6 md:py-8 text-center text-sm md:text-base">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 DnRs Bikeshop. All rights reserved.</p>
+            <div class="flex justify-center space-x-3 md:space-x-4 mt-3 md:mt-4">
+                <a href="#" class="hover:text-orange-500 transition duration-300">Privacy Policy</a>
+                <a href="#" class="hover:text-orange-500 transition duration-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Basic Navigation and Animation ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('#mobile-menu a, nav a');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+            closeMobileMenuButton.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    // Smooth scroll for anchor links
+                    const targetId = link.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            const sections = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
+
+    
+    
+    
+    
+    
+    
+    
